@@ -13,19 +13,24 @@ The idea is to use photographs to measure the width of the base of the dorsal fi
 
 2. Stranding data sheets downloaded from the National Museum of Natural History mammal collections catalog. (url: https://collections.nmnh.si.edu/search/mammals/)
 
+3. Stranding data from NC from Vicky Thayer.
+
 ## quick look
 ```{r setup}
 # load data
 pac <- read.table('A00_data/globi_yonekura_1980.csv', header = TRUE, sep = ',', stringsAsFactors = FALSE)
-atl <- read.table('A00_data/gma_nmnh_strandings.csv', header = TRUE, sep = ',', stringsAsFactors = FALSE)
+atl1 <- read.table('A00_data/gma_strandings_VT.csv', header = TRUE, sep = ',', stringsAsFactors = FALSE)
+atl2 <- read.table('A00_data/gma_nmnh_strandings.csv', header = TRUE, sep = ',', stringsAsFactors = FALSE)
+
 
 # add an ocean
 pac$ocean <- 'pacific'
-atl$ocean <- 'atlantic'
+atl1$ocean <- 'atlantic'
+atl2$ocean <- 'atlantic'
 
 # combine dfs
 desecols <- c('sex', 'TL', 'WDORS', 'ocean')
-dat <- rbind(pac[, desecols], atl[, desecols])
+dat <- rbind(pac[, desecols], atl1[, desecols], atl2[, desecols])
 ```
 
 ```{r make-aplot}
@@ -38,5 +43,5 @@ plot(dat$WDORS, dat$TL,
 legend('bottomright', legend = c('pacific', 'atlantic', 'male', 'female'), col = c('red', 'black', 'grey', 'grey'), pch = c(15, 15, 2, 1))
 ```
 
-## conclusions
-need more data from atlantic strandings
+## additional data
+perhaps additional data available at UNCW?
