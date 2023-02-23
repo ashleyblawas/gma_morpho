@@ -43,5 +43,37 @@ plot(dat$WDORS, dat$TL,
 legend('bottomright', legend = c('pacific', 'atlantic', 'male', 'female'), col = c('red', 'black', 'grey', 'grey'), pch = c(15, 15, 2, 1))
 ```
 
+## model the data and detect outliers
+```{r}
+# create a linear model
+mod <- lm(TL ~ WDORS, data=dat)
+summary(mod)
+
+par(mfrow = c(2,2), oma = c(0, 0, 1.1, 0))
+plot(mod, las = 1)
+
+# 164 and 62 are problematic to the model
+dat <- dat[c(-62, -164), ]
+```
+
+## plot new subset
+```{r}
+# plot
+plot(dat$WDORS, dat$TL,
+  col = as.numeric(as.factor(dat$ocean)),
+  pch = as.numeric(as.factor(dat$sex)),
+  las = 1, xlab = 'width of dorsal fin (cm)', ylab = 'total length (cm)'
+)
+legend('bottomright', legend = c('pacific', 'atlantic', 'male', 'female'), col = c('red', 'black', 'grey', 'grey'), pch = c(15, 15, 2, 1))
+```
+
+## model new data
+```{r}
+
+mod <- lm(TL ~ WDORS, data=dat)
+summary(mod)
+
+```
+
 ## additional data
 perhaps additional data available at UNCW?
